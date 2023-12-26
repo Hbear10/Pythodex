@@ -64,14 +64,14 @@ def destroy_main_pokemon_menu():
     type2.destroy()
     species.destroy()
     generation.destroy()
-    hp.destroy()
-    height.destroy()
-    weight.destroy()
-    attack.destroy()
-    defence.destroy()
-    speed.destroy()
-    specialAttack.destroy()
-    specialDefence.destroy()
+    # hp.destroy()
+    # height.destroy()
+    # weight.destroy()
+    # attack.destroy()
+    # defence.destroy()
+    # speed.destroy()
+    # specialAttack.destroy()
+    # specialDefence.destroy()
     pokemon_image_label.destroy()
     icon.destroy()
 
@@ -86,11 +86,12 @@ def addonecount():
 
     main_pokemon()
 
+
 def minusonecount():
     global count
 
     if count == 0:
-        count = len(pokemons)-1
+        count = len(pokemons) - 1
     else:
         count -= 1
 
@@ -163,37 +164,42 @@ def type_colour_check(type):
         typebg = "black"
         typefg = "white"
 
-def start_screen_destroy():
 
+def start_screen_destroy():
     start_screen.destroy()
     start_button.destroy()
+
+
 def start_screen():
-    global start_screen,start_screen_img,start_button
+    global start_screen, start_screen_img, start_button
 
     start_screen_img = ImageTk.PhotoImage(Image.open("./assets/start_screen.png"))
-    start_screen = ttk.Label(root, image=start_screen_img,borderwidth=0)
-    start_screen.place(relx=0,rely=0)
+    start_screen = ttk.Label(root, image=start_screen_img, borderwidth=0)
+    start_screen.place(relx=0, rely=0)
 
-    start_button = tk.Button(root, text="Start", font=(font, 15), bg="light blue", command=lambda:[start_screen_destroy(),main_pokemon()])
-    start_button.place(relx=0.4,rely=0.85)
+    start_button = tk.Button(root, text="Start", font=(font, 15), bg="light blue",
+                             command=lambda: [start_screen_destroy(), main_pokemon()])
+    start_button.place(relx=0.4, rely=0.85)
+
 
 def main_pokemon():
-    global name, number, type1, type2, generation, species, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total \
-        , next, pokemon_image_label, typebg, typefg, pokemon_image, count, icon_image, icon
+    global name, number, type1, type2, generation, species, pokemon_image_label, next, \
+        typebg, typefg, pokemon_image, count, icon_image, icon
+    # weight, height,hp, attack, defence, specialAttack, specialDefence, speed, total
 
-    name = ttk.Label(root, text=pokemons[count].name, font=(font, 20))
+    name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), foreground="#0f0f0a")
 
     numberlen = len(str(pokemons[count].number))
     if numberlen < 1:
-        number = (ttk.Label(root, text="#0000", font=(font, 17)))
+        number = (ttk.Label(root, text="#0000", font=(font, 17), foreground="#6b6b47"))
     elif numberlen == 1:
-        number = (ttk.Label(root, text=f"#000{pokemons[count].number}", font=(font, 17)))
+        number = (ttk.Label(root, text=f"#000{pokemons[count].number}", font=(font, 17), foreground="#6b6b47"))
     elif numberlen == 2:
-        number = (ttk.Label(root, text=f"#00{pokemons[count].number}", font=(font, 17)))
+        number = (ttk.Label(root, text=f"#00{pokemons[count].number}", font=(font, 17), foreground="#6b6b47"))
     elif numberlen == 3:
-        number = (ttk.Label(root, text=f"#0{pokemons[count].number}", font=(font, 17)))
+        number = (ttk.Label(root, text=f"#0{pokemons[count].number}", font=(font, 17), foreground="#6b6b47"))
     elif numberlen == 4:
-        number = (ttk.Label(root, text=f"#{pokemons[count].number}", font=(font, 17)))
+        number = (ttk.Label(root, text=f"#{pokemons[count].number}", font=(font, 17), foreground="#6b6b47"))
     else:
         number = (ttk.Label(root, text="#Error", font=(font, 17)))
 
@@ -204,61 +210,61 @@ def main_pokemon():
     type1 = (ttk.Label(root, text=pokemons[count].type1, font=(font, 17), background=typebg, foreground=typefg))
     type_colour_check(pokemons[count].type2)
     type2 = (ttk.Label(root, text=pokemons[count].type2, font=(font, 17), background=typebg, foreground=typefg))
-    generation = (ttk.Label(root, text=f"Gen: {pokemons[count].generation}", font=(font, 17)))
-    species = (ttk.Label(root, text=pokemons[count].species, font=(font, 14)))
-    height = (ttk.Label(root, text=f"Height: {pokemons[count].height}", font=(font, 12)))
-    weight = (ttk.Label(root, text=f"Weight: {pokemons[count].weight}", font=(font, 12)))
-    ability = (ttk.Label(root, text=pokemons[count].abilities, font=(font, 12)))
-    hiddenAbility = (ttk.Label(root, text=pokemons[count].habilities, font=(font, 12)))
-    hp = (ttk.Label(root, text=f"HP: {pokemons[count].hp}", font=(font, 12)))
-    attack = (ttk.Label(root, text=f"Attack: {pokemons[count].attack}", font=(font, 12)))
-    defence = (ttk.Label(root, text=f"Defence: {pokemons[count].defence}", font=(font, 12)))
-    specialAttack = (ttk.Label(root, text=f"Special Attack: {pokemons[count].spattack}", font=(font, 12)))
-    specialDefence = (ttk.Label(root, text=f"Special Defence: {pokemons[count].spdefence}", font=(font, 12)))
-    speed = (ttk.Label(root, text=f"Speed: {pokemons[count].speed}", font=(font, 12)))
-    total = (ttk.Label(root, text=f"Total: {pokemons[count].total}", font=(font, 12)))
+    generation = (ttk.Label(root, text=f"Gen: {pokemons[count].generation}", font=(font, 12), foreground="#6b6b47"))
+    species = (ttk.Label(root, text=pokemons[count].species, font=(font, 17), foreground="#6b6b47"))
+    # height = (ttk.Label(root, text=f"Height: {pokemons[count].height}m", font=(font, 12),foreground="#6b6b47"))
+    # weight = (ttk.Label(root, text=f"Weight: {pokemons[count].weight}kg", font=(font, 12),foreground="#6b6b47"))
+    # ability = (ttk.Label(root, text=pokemons[count].abilities, font=(font, 12),foreground="#6b6b47"))
+    # hiddenAbility = (ttk.Label(root, text=pokemons[count].habilities, font=(font, 12),foreground="#6b6b47"))
+    # hp = (ttk.Label(root, text=f"HP: {pokemons[count].hp}", font=(font, 12),foreground="#6b6b47"))
+    # attack = (ttk.Label(root, text=f"Attack: {pokemons[count].attack}", font=(font, 12),foreground="#6b6b47"))
+    # defence = (ttk.Label(root, text=f"Defence: {pokemons[count].defence}", font=(font, 12),foreground="#6b6b47"))
+    # specialAttack = (ttk.Label(root, text=f"Special Attack: {pokemons[count].spattack}", font=(font, 12),foreground="#6b6b47"))
+    # specialDefence = (ttk.Label(root, text=f"Special Defence: {pokemons[count].spdefence}", font=(font, 12),foreground="#6b6b47"))
+    # speed = (ttk.Label(root, text=f"Speed: {pokemons[count].speed}", font=(font, 12),foreground="#6b6b47"))
+    # total = (ttk.Label(root, text=f"Total: {pokemons[count].total}", font=(font, 12),foreground="#6b6b47"))
 
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
-    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">", command=lambda: [destroy_main_pokemon_menu(),addonecount()])
-    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<", command=lambda: [destroy_main_pokemon_menu(),minusonecount()])
+    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
+                     command=lambda: [destroy_main_pokemon_menu(), addonecount()])
+    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
+                     command=lambda: [destroy_main_pokemon_menu(), minusonecount()])
 
     if pokemons[count].legendary:
         icon_image = ImageTk.PhotoImage(Image.open(f"./assets/legendary_Preview.png"))
     else:
         icon_image = ImageTk.PhotoImage(Image.open(f"./assets/myth.png"))
-    icon = ttk.Label(root, image=icon_image,background="red",borderwidth=0)
-
+    icon = ttk.Label(root, image=icon_image, background="red", borderwidth=0)
 
     if pokemons[count].legendary or pokemons[count].mythical:
-        icon.place(relx=0.7,rely=0.7)
+        icon.place(relx=0.7, rely=0.05)
     else:
-        icon.place(relx=1,rely=1)
+        icon.place(relx=1, rely=1)
 
     name.place(relx=0.025, rely=0.05)
-    number.place(relx=0.025, rely=0.139)
+    number.place(relx=0.025, rely=0.3)
     type1.place(relx=0.025, rely=0.225)
     type2.place(relx=0.4, rely=0.225)
-    generation.place(relx=0.4, rely=0.139)
-    species.place(relx=0.025, rely=0.325)
-
-    height.place(relx=0.025, rely=0.4)
-    weight.place(relx=0.5, rely=0.4)
-
-    hp.place(relx=0.025, rely=0.475)
-    attack.place(relx=0.025, rely=0.53)
-    defence.place(relx=0.025, rely=0.595)
-    specialAttack.place(relx=0.025, rely=0.66)
-    specialDefence.place(relx=0.025, rely=0.725)
-    speed.place(relx=0.025, rely=0.785)
-    total.place(relx=0.025, rely=0.845)
+    generation.place(relx=0.1, rely=0.9)
+    species.place(relx=0.025, rely=0.15)
 
     next.place(relx=0.9, rely=0.9)
     last.place(relx=0.8, rely=0.9)
 
+    pokemon_image_label.place(relx=0.25, rely=0.4)
 
-    pokemon_image_label.place(relx=0.7, rely=0)
+    # height.place(relx=0.025, rely=0.4)
+    # weight.place(relx=0.5, rely=0.4)
+
+    # hp.place(relx=0.025, rely=0.475)
+    # attack.place(relx=0.025, rely=0.53)
+    # defence.place(relx=0.025, rely=0.595)
+    # specialAttack.place(relx=0.025, rely=0.66)
+    # specialDefence.place(relx=0.025, rely=0.725)
+    # speed.place(relx=0.025, rely=0.785)
+    # total.place(relx=0.025, rely=0.845)
 
 
 start_screen()
