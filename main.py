@@ -52,21 +52,10 @@ print(pokemons)
 
 font = "Joystix Monospace"
 
-count = 1
+count = 0
 
 
-def addonecount():
-    global count
-
-    if count == len(pokemons) - 1:
-        count = 0
-    else:
-        count += 1
-
-    pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
-    pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
-    pokemon_image_label.place(relx=0.7, rely=0)
-
+def clear_menu_pokemon_show_one():
     name.destroy()
     type1.destroy()
     number.destroy()
@@ -81,8 +70,28 @@ def addonecount():
     speed.destroy()
     specialAttack.destroy()
     specialDefence.destroy()
-    make_things_that_you_see()
     pokemon_image_label.destroy()
+
+
+def addonecount():
+    global count
+
+    if count == len(pokemons) - 1:
+        count = 0
+    else:
+        count += 1
+
+    make_things_that_you_see()
+
+def minusonecount():
+    global count
+
+    if count == 0:
+        count = len(pokemons)-1
+    else:
+        count -= 1
+
+    make_things_that_you_see()
 
 
 root = tk.Tk()
@@ -144,8 +153,8 @@ def type_colour_check(type):
         typebg = "grey"
         typefg = "white"
     elif type == "Psychic":
-        typebg="#cc0099"
-        typefg="white"
+        typebg = "#cc0099"
+        typefg = "white"
 
     else:
         typebg = "black"
@@ -154,7 +163,7 @@ def type_colour_check(type):
 
 def make_things_that_you_see():
     global name, number, type1, type2, generation, species, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total \
-        , next, pokemon_image_label, typebg, typefg, pokemon_image
+        , next, pokemon_image_label, typebg, typefg, pokemon_image, count
 
     name = ttk.Label(root, text=pokemons[count].name, font=(font, 20))
 
@@ -196,7 +205,10 @@ def make_things_that_you_see():
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
-    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">", command=addonecount)
+    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">", command=lambda: [clear_menu_pokemon_show_one(),addonecount()])
+    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<", command=lambda: [clear_menu_pokemon_show_one(),minusonecount()])
+
+
 
     name.place(relx=0.025, rely=0.05)
     number.place(relx=0.025, rely=0.139)
@@ -217,6 +229,8 @@ def make_things_that_you_see():
     total.place(relx=0.025, rely=0.845)
 
     next.place(relx=0.9, rely=0.9)
+    last.place(relx=0.8, rely=0.9)
+
 
     pokemon_image_label.place(relx=0.7, rely=0)
 
