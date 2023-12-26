@@ -1,0 +1,12 @@
+legendary
+mythical
+Bulbasaur,1,1,Grass,Poison,Seed Pokémon
+Shuckle,213,2,Bug,Rock,Mold Pokémon
+Whiscash,340,3,Water,Ground,Whiskers Pokémon
+Togekiss,468,4,Fairy,Flying,Jubilee Pokémon
+Hydreigon,635,5,Dark,Dragon,Brutal Pokémon
+Talonflame,663,6,Fire,Flying,Scorching Pokémon
+Crabominable,740,7,Fighting,Ice,Woolly Crab Pokémon
+Wyrdeer,899,8,Normal,Psychic,Big Horn Pokémon
+Pawmot,923,9,Electric,Fighting,Hands-On Pokémon
+Gholdengo,1000,9,Steel,Ghost,Coin Entity Pokémon

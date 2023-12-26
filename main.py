@@ -2,21 +2,20 @@ from Pokemon import Pokemon
 import tkinter as tk
 from tkinter import ttk
 from PIL import ImageTk, Image
+import sys
 from ctypes import windll
 
 windll.shcore.SetProcessDpiAwareness(1)
 
 pokemons = []
-
+'''
 bulbasaur = Pokemon("Bulbasaur", 1, 1, "Grass", "Poison", "Seed Pokémon", 0.7, 6.9,
                     ["Overgrow"], ["Chlorophyll"], 45, 49, 49, 65, 65, 45)
-bulbasaur.add_to_list(pokemons)
-bulbasaur.legendarify()
 
-shuckle = Pokemon("Shuckle", 213, 2, "Bug", "Rock", "Mold Pokémon", 0.6, 20.5, ["Sturdy", "Gluttony"],
+shuckle = Pokemon(, 0.6, 20.5, ["Sturdy", "Gluttony"],
                   ["Contrary"], 20, 10, 230, 10, 230, 5)
 shuckle.add_to_list(pokemons)
-shuckle.myth()
+
 
 whiscash = Pokemon("Whiscash", 340, 3, "Water", "Ground", "Whiskers Pokémon", 0.9, 23.6, ["Oblivious", "Anticipation"],
                    ["Hydration"], 110, 78, 73, 76, 71, 60)
@@ -30,7 +29,7 @@ hydreigon = Pokemon("Hydreigon", 635, 5, "Dark", "Dragon", "Brutal Pokémon", 1.
                     92, 105, 90, 125, 90, 98)
 hydreigon.add_to_list(pokemons)
 
-talonflame = Pokemon("Talonflame", 663, 6, "Fire", "Flying", "Jubilee Pokémon", 1.2, 24.5, ["Flame Body"],
+talonflame = Pokemon("Talonflame", 663, 6, "Fire", "Flying", "Scorching Pokémon", 1.2, 24.5, ["Flame Body"],
                      ["Gale Wings"], 78, 81, 71, 74, 69, 126)
 talonflame.add_to_list(pokemons)
 
@@ -38,11 +37,11 @@ crabominable = Pokemon("Crabominable", 740, 7, "Fighting", "Ice", "Woolly Crab P
                        ["Hyper Cutter", "Iron Fist"], ["Anger Point"], 97, 132, 77, 62, 67, 43)
 crabominable.add_to_list(pokemons)
 
-wyrdeer = Pokemon("Wyrdeer", 899, 8, "Normal", "Psychic", "Big Horn Pokémon", 1.8, 95.1,
+wyrdeer = Pokemon("", 1.8, 95.1,
                   ["Intimidate", "Frisk"], ["Sad Sipper"], 103, 105, 72, 105, 75, 65)
 wyrdeer.add_to_list(pokemons)
 
-pawmot = Pokemon("Pawmot", 923, 9, "Electric", "Fighting", "Hands-On Pokémon", 0.9, 41.0,
+pawmot = Pokemon("", 0.9, 41.0,
                  ["Volt Absorb", "Natural Cure"], ["Iron Fist"], 70, 115, 70, 70, 60, 105)
 pawmot.add_to_list(pokemons)
 
@@ -51,10 +50,56 @@ gholdengo = Pokemon("Gholdengo", 1000, 9, "Steel", "Ghost", "Coin Entity Pokémo
 gholdengo.add_to_list(pokemons)
 
 print(pokemons)
-
+'''
 font = "Joystix Monospace"
 
 count = 0
+
+
+def info_get_file():
+    global pokemons
+
+    with open("Pokemon.txt", "r", encoding='utf-8') as file:
+        lines = (file.readlines())
+        print(lines)
+        file_length = len(lines)
+
+        legendaries = lines[0].split(",")
+        legendaries[-1] = (legendaries[-1]).replace("\n","")
+
+        if len(legendaries) == 0:
+            pass
+        else:
+            for i in legendaries:
+                try:
+                    eval(i).legendarify()
+                except NameError:
+                    pass
+
+        mythicals = lines[1].split(",")
+        mythicals[-1] = (mythicals[-1]).replace("\n","")
+
+        if len(mythicals) == 0:
+            pass
+        else:
+            for i in mythicals:
+                try:
+                    eval(i).myth()
+                except NameError:
+                    pass
+
+        if file_length < 3:
+            print("No data")
+        else:
+            listofpoke = {}
+            for i in range(2,file_length):
+                line = (lines[i]).split(",")
+                pokename = line[0]
+                listofpoke[pokename.lower()] = Pokemon(line[0],line[1],line[2],line[3],line[4],line[5].replace("\n",""))
+
+            for pokename, obj in listofpoke.items():
+                globals()[pokename] = obj
+                eval(pokename).add_to_list(pokemons)
 
 
 def destroy_main_pokemon_menu():
@@ -96,9 +141,6 @@ def minusonecount():
         count -= 1
 
     main_pokemon()
-
-
-root = tk.Tk()
 
 
 def type_colour_check(type):
@@ -247,7 +289,7 @@ def main_pokemon():
     number.place(relx=0.025, rely=0.3)
     type1.place(relx=0.025, rely=0.225)
     type2.place(relx=0.4, rely=0.225)
-    generation.place(relx=0.1, rely=0.9)
+    generation.place(relx=0.025, rely=0.9)
     species.place(relx=0.025, rely=0.15)
 
     next.place(relx=0.9, rely=0.9)
@@ -267,6 +309,8 @@ def main_pokemon():
     # total.place(relx=0.025, rely=0.845)
 
 
+info_get_file()
+root = tk.Tk()
 start_screen()
 
 root.config(bg="red")
