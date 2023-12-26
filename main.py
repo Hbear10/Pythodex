@@ -11,10 +11,12 @@ pokemons = []
 bulbasaur = Pokemon("Bulbasaur", 1, 1, "Grass", "Poison", "Seed Pokémon", 0.7, 6.9,
                     ["Overgrow"], ["Chlorophyll"], 45, 49, 49, 65, 65, 45)
 bulbasaur.add_to_list(pokemons)
+bulbasaur.legendarify()
 
 shuckle = Pokemon("Shuckle", 213, 2, "Bug", "Rock", "Mold Pokémon", 0.6, 20.5, ["Sturdy", "Gluttony"],
                   ["Contrary"], 20, 10, 230, 10, 230, 5)
 shuckle.add_to_list(pokemons)
+shuckle.myth()
 
 whiscash = Pokemon("Whiscash", 340, 3, "Water", "Ground", "Whiskers Pokémon", 0.9, 23.6, ["Oblivious", "Anticipation"],
                    ["Hydration"], 110, 78, 73, 76, 71, 60)
@@ -55,7 +57,7 @@ font = "Joystix Monospace"
 count = 0
 
 
-def clear_menu_pokemon_show_one():
+def destroy_main_pokemon_menu():
     name.destroy()
     type1.destroy()
     number.destroy()
@@ -71,6 +73,7 @@ def clear_menu_pokemon_show_one():
     specialAttack.destroy()
     specialDefence.destroy()
     pokemon_image_label.destroy()
+    icon.destroy()
 
 
 def addonecount():
@@ -81,7 +84,7 @@ def addonecount():
     else:
         count += 1
 
-    make_things_that_you_see()
+    main_pokemon()
 
 def minusonecount():
     global count
@@ -91,7 +94,7 @@ def minusonecount():
     else:
         count -= 1
 
-    make_things_that_you_see()
+    main_pokemon()
 
 
 root = tk.Tk()
@@ -160,10 +163,23 @@ def type_colour_check(type):
         typebg = "black"
         typefg = "white"
 
+def start_screen_destroy():
 
-def make_things_that_you_see():
+    start_screen.destroy()
+    start_button.destroy()
+def start_screen():
+    global start_screen,start_screen_img,start_button
+
+    start_screen_img = ImageTk.PhotoImage(Image.open("./assets/start_screen.png"))
+    start_screen = ttk.Label(root, image=start_screen_img,borderwidth=0)
+    start_screen.place(relx=0,rely=0)
+
+    start_button = tk.Button(root, text="Start", font=(font, 15), bg="light blue", command=lambda:[start_screen_destroy(),main_pokemon()])
+    start_button.place(relx=0.4,rely=0.85)
+
+def main_pokemon():
     global name, number, type1, type2, generation, species, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total \
-        , next, pokemon_image_label, typebg, typefg, pokemon_image, count
+        , next, pokemon_image_label, typebg, typefg, pokemon_image, count, icon_image, icon
 
     name = ttk.Label(root, text=pokemons[count].name, font=(font, 20))
 
@@ -205,10 +221,20 @@ def make_things_that_you_see():
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
-    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">", command=lambda: [clear_menu_pokemon_show_one(),addonecount()])
-    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<", command=lambda: [clear_menu_pokemon_show_one(),minusonecount()])
+    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">", command=lambda: [destroy_main_pokemon_menu(),addonecount()])
+    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<", command=lambda: [destroy_main_pokemon_menu(),minusonecount()])
+
+    if pokemons[count].legendary:
+        icon_image = ImageTk.PhotoImage(Image.open(f"./assets/legendary_Preview.png"))
+    else:
+        icon_image = ImageTk.PhotoImage(Image.open(f"./assets/myth.png"))
+    icon = ttk.Label(root, image=icon_image,background="red",borderwidth=0)
 
 
+    if pokemons[count].legendary or pokemons[count].mythical:
+        icon.place(relx=0.7,rely=0.7)
+    else:
+        icon.place(relx=1,rely=1)
 
     name.place(relx=0.025, rely=0.05)
     number.place(relx=0.025, rely=0.139)
@@ -235,7 +261,7 @@ def make_things_that_you_see():
     pokemon_image_label.place(relx=0.7, rely=0)
 
 
-make_things_that_you_see()
+start_screen()
 
 root.config(bg="red")
 root.title("Pythodex")

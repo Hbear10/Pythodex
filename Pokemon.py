@@ -18,9 +18,16 @@ class Pokemon:
         self.spdefence = spdefence
         self.speed = speed
         self.total = attack + defence + speed + hp +spattack+spdefence
-
+        self.legendary= False
+        self.mythical=False
     def add_to_list(self,list):
         list.append(self)
+
+    def legendarify(self):
+        self.legendary = True
+
+    def myth(self):
+        self.mythical=True
 
 
 
