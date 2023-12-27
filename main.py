@@ -9,42 +9,7 @@ windll.shcore.SetProcessDpiAwareness(1)
 
 screens = ["start"]
 pokemons = []
-'''
-bulbasaur = Pokemon("Bulbasaur", 1, 1, "Grass", "Poison", "Seed Pokémon", 0.7, 6.9,
-                    ["Overgrow"], ["Chlorophyll"], 45, 49, 49, 65, 65, 45)
 
-shuckle = Pokemon(, 0.6, 20.5, ["Sturdy", "Gluttony"],
-                  ["Contrary"], 20, 10, 230, 10, 230, 5)
-shuckle.add_to_list(pokemons)
-
-
-whiscash = Pokemon("Whiscash", 340, 3, "Water", "Ground", "Whiskers Pokémon", 0.9, 23.6, ["Oblivious", "Anticipation"],
-                   ["Hydration"], 110, 78, 73, 76, 71, 60)
-whiscash.add_to_list(pokemons)
-
-togekiss = Pokemon("Togekiss", 468, 4, "Fairy", "Flying", "Jubilee Pokémon", 1.5, 38.0, ["Hustle", "Serene Grace"],
-                   ["Super Luck"], 85, 50, 95, 120, 115, 80)
-togekiss.add_to_list(pokemons)
-
-hydreigon = Pokemon("Hydreigon", 635, 5, "Dark", "Dragon", "Brutal Pokémon", 1.8, 180.0, ["Levitate"], [],
-                    92, 105, 90, 125, 90, 98)
-hydreigon.add_to_list(pokemons)
-
-talonflame = Pokemon("Talonflame", 663, 6, "Fire", "Flying", "Scorching Pokémon", 1.2, 24.5, ["Flame Body"],
-                     ["Gale Wings"], 78, 81, 71, 74, 69, 126)
-talonflame.add_to_list(pokemons)
-
-crabominable = Pokemon("Crabominable", 740, 7, "Fighting", "Ice", "Woolly Crab Pokémon", 1.7, 180.0,
-                       ["Hyper Cutter", "Iron Fist"], ["Anger Point"], 97, 132, 77, 62, 67, 43)
-crabominable.add_to_list(pokemons)
-
-wyrdeer = Pokemon("", 1.8, 95.1,
-                  ["Intimidate", "Frisk"], ["Sad Sipper"], 103, 105, 72, 105, 75, 65)
-pawmot = Pokemon("", 0.9, 41.0,
-                 ["Volt Absorb", "Natural Cure"], ["Iron Fist"], 70, 115, 70, 70, 60, 105)
-gholdengo =1.2, 30.0, ["Good as gold"], [], 87,
-                    60, 95, 133, 91, 84)
-'''
 font = "Joystix Monospace"
 
 count = 0
@@ -91,7 +56,9 @@ def info_get_file():
                 line = (lines[i]).split(",")
                 pokename = line[0]
                 listofpoke[pokename.lower()] = Pokemon(line[0], line[1], line[2], line[3], line[4],
-                                                       line[5].replace("\n", ""))
+                                                       line[5], line[6], line[7], line[8], line[9], line[10], line[11],
+                                                       line[12],
+                                                       line[13], line[14], line[15].replace("\n", ""))
 
             for pokename, obj in listofpoke.items():
                 globals()[pokename] = obj
@@ -112,7 +79,7 @@ def start_screen_menu():
     start_screen.place(relx=0, rely=0)
 
     start_button = tk.Button(root, text="Start", font=(font, 15), bg="light blue",
-                             command=lambda: [start_screen_destroy(), option_menu(),screens.append("option menu")])
+                             command=lambda: [start_screen_destroy(), option_menu(), screens.append("option menu")])
     start_button.place(relx=0.4, rely=0.85)
 
 
@@ -127,7 +94,8 @@ def option_menu():
     main_pokemon_choose_label.place(relx=0.1, rely=0.175)
 
     main_pokemon_choose_button = tk.Button(root, text="Enter", font=(font, 15),
-                                           command=lambda: [destroy_option_menu(), main_pokemon(),screens.append("main pokemon menu")])
+                                           command=lambda: [destroy_option_menu(), main_pokemon(),
+                                                            screens.append("main pokemon menu")])
     main_pokemon_choose_button.place(relx=0.625, rely=0.175)
 
 
@@ -143,17 +111,20 @@ def back_button_func():
     if len(screens) == 1:
         root.destroy()
     else:
-        if screens[-1]=="option menu":
+        if screens[-1] == "option menu":
             destroy_option_menu()
-        elif screens[-1]=="main pokemon menu":
+        elif screens[-1] == "main pokemon menu":
             destroy_main_pokemon_menu()
+        elif screens[-1] == "second pokemon menu":
+            destroy_secondary_pokemon_menu()
+
         screens.pop()
-        if screens[-1]=="start":
+        if screens[-1] == "start":
             start_screen_menu()
-        elif screens[-1]=="option menu":
+        elif screens[-1] == "option menu":
 
             option_menu()
-        elif screens[-1]=="main pokemon menu":
+        elif screens[-1] == "main pokemon menu":
             main_pokemon()
         back_button_button.destroy()
         back_button()
@@ -162,23 +133,79 @@ def back_button_func():
 def back_button():
     global back_button_button
 
-    back_button_button = tk.Button(root, text="<", command=back_button_func, font=(font, 10),background="yellow")
+    back_button_button = tk.Button(root, text="<", command=back_button_func, font=(font, 10), background="yellow")
     back_button_button.place(relx=0, rely=0)
 
 
 def secondary_pokemon_menu():
-    pass
+    global name, next, last, count, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total, \
+        ability, hiddenAbility, back_page
+
+    name = ttk.Label(root, text=pokemons[count].name, font=(font, 15), foreground="#0f0f0a")
+    height = (ttk.Label(root, text=f"Height: {pokemons[count].height}m", font=(font, 12), foreground="#6b6b47"))
+    weight = (ttk.Label(root, text=f"Weight: {pokemons[count].weight}kg", font=(font, 12), foreground="#6b6b47"))
+    ability = (ttk.Label(root, text=pokemons[count].abilities, font=(font, 12), foreground="#6b6b47"))
+    print(type(pokemons[count].abilities))
+    hiddenAbility = (ttk.Label(root, text=pokemons[count].habilities, font=(font, 12), foreground="#6b6b47"))
+    hp = (ttk.Label(root, text=f"HP: {pokemons[count].hp}", font=(font, 12), foreground="#6b6b47"))
+    attack = (ttk.Label(root, text=f"Attack: {pokemons[count].attack}", font=(font, 12), foreground="#6b6b47"))
+    defence = (ttk.Label(root, text=f"Defence: {pokemons[count].defence}", font=(font, 12), foreground="#6b6b47"))
+    specialAttack = (
+        ttk.Label(root, text=f"Special Attack: {pokemons[count].spattack}", font=(font, 12), foreground="#6b6b47"))
+    specialDefence = (
+        ttk.Label(root, text=f"Special Defence: {pokemons[count].spdefence}", font=(font, 12), foreground="#6b6b47"))
+    speed = (ttk.Label(root, text=f"Speed: {pokemons[count].speed}", font=(font, 12), foreground="#6b6b47"))
+    total = (ttk.Label(root, text=f"Total: {pokemons[count].total}", font=(font, 12), foreground="#6b6b47"))
+
+    next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
+                     command=lambda: [destroy_secondary_pokemon_menu(), addonecount(),secondary_pokemon_menu()])
+    last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
+                     command=lambda: [destroy_secondary_pokemon_menu(), minusonecount(),secondary_pokemon_menu()])
+    back_page = tk.Button(root, font=(font, 12), bg="yellow", text="last\npage",
+                          command=lambda: [destroy_secondary_pokemon_menu(), main_pokemon(), screens.pop(),
+                                           screens.append("main pokemon menu")])
+
+    name.place(relx=0.025, rely=0.05)
+    height.place(relx=0.025, rely=0.15)
+    weight.place(relx=0.5, rely=0.15)
+    ability.place(relx=0.025, rely=0.2)
+    hiddenAbility.place(relx=0.025, rely=0.25)
+
+    hp.place(relx=0.025, rely=0.475)
+    attack.place(relx=0.025, rely=0.53)
+    defence.place(relx=0.025, rely=0.595)
+    specialAttack.place(relx=0.025, rely=0.66)
+    specialDefence.place(relx=0.025, rely=0.725)
+    speed.place(relx=0.025, rely=0.785)
+    total.place(relx=0.025, rely=0.845)
+
+    next.place(relx=0.9, rely=0.9)
+    last.place(relx=0.8, rely=0.9)
+    back_page.place(relx=0.1, rely=0.35)
 
 
 def destroy_secondary_pokemon_menu():
-    pass
+    name.destroy()
+    hp.destroy()
+    height.destroy()
+    weight.destroy()
+    attack.destroy()
+    total.destroy()
+    defence.destroy()
+    speed.destroy()
+    specialAttack.destroy()
+    specialDefence.destroy()
+    ability.destroy()
+    hiddenAbility.destroy()
+    next.destroy()
+    last.destroy()
+    back_page.destroy()
 
 
 # main pokemon menu
 def main_pokemon():
     global name, number, type1, type2, generation, species, pokemon_image_label, next, \
-        typebg, typefg, pokemon_image, count, icon_image, icon,last
-    # weight, height,hp, attack, defence, specialAttack, specialDefence, speed, total
+        typebg, typefg, pokemon_image, count, icon_image, icon, last, to_page_two_button
 
     name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), foreground="#0f0f0a")
 
@@ -205,25 +232,18 @@ def main_pokemon():
     type2 = (ttk.Label(root, text=pokemons[count].type2, font=(font, 17), background=typebg, foreground=typefg))
     generation = (ttk.Label(root, text=f"Gen: {pokemons[count].generation}", font=(font, 12), foreground="#6b6b47"))
     species = (ttk.Label(root, text=pokemons[count].species, font=(font, 17), foreground="#6b6b47"))
-    # height = (ttk.Label(root, text=f"Height: {pokemons[count].height}m", font=(font, 12),foreground="#6b6b47"))
-    # weight = (ttk.Label(root, text=f"Weight: {pokemons[count].weight}kg", font=(font, 12),foreground="#6b6b47"))
-    # ability = (ttk.Label(root, text=pokemons[count].abilities, font=(font, 12),foreground="#6b6b47"))
-    # hiddenAbility = (ttk.Label(root, text=pokemons[count].habilities, font=(font, 12),foreground="#6b6b47"))
-    # hp = (ttk.Label(root, text=f"HP: {pokemons[count].hp}", font=(font, 12),foreground="#6b6b47"))
-    # attack = (ttk.Label(root, text=f"Attack: {pokemons[count].attack}", font=(font, 12),foreground="#6b6b47"))
-    # defence = (ttk.Label(root, text=f"Defence: {pokemons[count].defence}", font=(font, 12),foreground="#6b6b47"))
-    # specialAttack = (ttk.Label(root, text=f"Special Attack: {pokemons[count].spattack}", font=(font, 12),foreground="#6b6b47"))
-    # specialDefence = (ttk.Label(root, text=f"Special Defence: {pokemons[count].spdefence}", font=(font, 12),foreground="#6b6b47"))
-    # speed = (ttk.Label(root, text=f"Speed: {pokemons[count].speed}", font=(font, 12),foreground="#6b6b47"))
-    # total = (ttk.Label(root, text=f"Total: {pokemons[count].total}", font=(font, 12),foreground="#6b6b47"))
 
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
-                     command=lambda: [destroy_main_pokemon_menu(), addonecount()])
+                     command=lambda: [destroy_main_pokemon_menu(), addonecount(),main_pokemon()])
     last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
-                     command=lambda: [destroy_main_pokemon_menu(), minusonecount()])
+                     command=lambda: [destroy_main_pokemon_menu(), minusonecount(),main_pokemon()])
+
+    to_page_two_button = tk.Button(root, font=(font, 12), bg="yellow", text="next\npage",
+                                   command=lambda: [destroy_main_pokemon_menu(), secondary_pokemon_menu(),
+                                                    screens.pop(), screens.append("second pokemon menu")])
 
     if pokemons[count].legendary:
         icon_image = ImageTk.PhotoImage(Image.open(f"./assets/legendary_Preview.png"))
@@ -245,19 +265,9 @@ def main_pokemon():
 
     next.place(relx=0.9, rely=0.9)
     last.place(relx=0.8, rely=0.9)
+    to_page_two_button.place(relx=0.8, rely=0.5)
 
     pokemon_image_label.place(relx=0.25, rely=0.4)
-
-    # height.place(relx=0.025, rely=0.4)
-    # weight.place(relx=0.5, rely=0.4)
-
-    # hp.place(relx=0.025, rely=0.475)
-    # attack.place(relx=0.025, rely=0.53)
-    # defence.place(relx=0.025, rely=0.595)
-    # specialAttack.place(relx=0.025, rely=0.66)
-    # specialDefence.place(relx=0.025, rely=0.725)
-    # speed.place(relx=0.025, rely=0.785)
-    # total.place(relx=0.025, rely=0.845)
 
 
 def destroy_main_pokemon_menu():
@@ -267,18 +277,11 @@ def destroy_main_pokemon_menu():
     type2.destroy()
     species.destroy()
     generation.destroy()
-    # hp.destroy()
-    # height.destroy()
-    # weight.destroy()
-    # attack.destroy()
-    # defence.destroy()
-    # speed.destroy()
-    # specialAttack.destroy()
-    # specialDefence.destroy()
     next.destroy()
     last.destroy()
     pokemon_image_label.destroy()
     icon.destroy()
+    to_page_two_button.destroy()
 
 
 def addonecount():
@@ -289,8 +292,6 @@ def addonecount():
     else:
         count += 1
 
-    main_pokemon()
-
 
 def minusonecount():
     global count
@@ -299,8 +300,6 @@ def minusonecount():
         count = len(pokemons) - 1
     else:
         count -= 1
-
-    main_pokemon()
 
 
 def type_colour_check(type):
