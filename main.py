@@ -104,7 +104,7 @@ def start_screen_destroy():
     start_button.destroy()
 
 
-def start_screen():
+def start_screen_menu():
     global start_screen, start_screen_img, start_button
 
     start_screen_img = ImageTk.PhotoImage(Image.open("./assets/start_screen.png"))
@@ -112,22 +112,24 @@ def start_screen():
     start_screen.place(relx=0, rely=0)
 
     start_button = tk.Button(root, text="Start", font=(font, 15), bg="light blue",
-                             command=lambda: [start_screen_destroy(), option_menu()])
+                             command=lambda: [start_screen_destroy(), option_menu(),screens.append("option menu")])
     start_button.place(relx=0.4, rely=0.85)
 
 
 # option select
 def option_menu():
-    global main_pokemon_choose_label,main_pokemon_choose_button,title
+    global main_pokemon_choose_label, main_pokemon_choose_button, title
 
-    title = ttk.Label(root,text="    Options    ",font=(font,25))
-    title.place(relx=0.025,rely=0.025)
+    title = ttk.Label(root, text="    Options    ", font=(font, 25))
+    title.place(relx=0.025, rely=0.075)
 
-    main_pokemon_choose_label = ttk.Label(root,text="Pokemon",font=(font,20))
-    main_pokemon_choose_label.place(relx=0.1,rely=0.16)
+    main_pokemon_choose_label = ttk.Label(root, text="Pokemon", font=(font, 20))
+    main_pokemon_choose_label.place(relx=0.1, rely=0.175)
 
-    main_pokemon_choose_button = tk.Button(root,text="Enter",font=(font,15), command=lambda:[destroy_option_menu(),main_pokemon()])
-    main_pokemon_choose_button.place(relx=0.625,rely=0.15)
+    main_pokemon_choose_button = tk.Button(root, text="Enter", font=(font, 15),
+                                           command=lambda: [destroy_option_menu(), main_pokemon(),screens.append("main pokemon menu")])
+    main_pokemon_choose_button.place(relx=0.625, rely=0.175)
+
 
 def destroy_option_menu():
     main_pokemon_choose_label.destroy()
@@ -136,11 +138,32 @@ def destroy_option_menu():
 
 
 def back_button_func():
-    pass
+    global screens
+
+    if len(screens) == 1:
+        root.destroy()
+    else:
+        if screens[-1]=="option menu":
+            destroy_option_menu()
+        elif screens[-1]=="main pokemon menu":
+            destroy_main_pokemon_menu()
+        screens.pop()
+        if screens[-1]=="start":
+            start_screen_menu()
+        elif screens[-1]=="option menu":
+
+            option_menu()
+        elif screens[-1]=="main pokemon menu":
+            main_pokemon()
+        back_button_button.destroy()
+        back_button()
 
 
 def back_button():
-    pass
+    global back_button_button
+
+    back_button_button = tk.Button(root, text="<", command=back_button_func, font=(font, 10),background="yellow")
+    back_button_button.place(relx=0, rely=0)
 
 
 def secondary_pokemon_menu():
@@ -154,7 +177,7 @@ def destroy_secondary_pokemon_menu():
 # main pokemon menu
 def main_pokemon():
     global name, number, type1, type2, generation, species, pokemon_image_label, next, \
-        typebg, typefg, pokemon_image, count, icon_image, icon
+        typebg, typefg, pokemon_image, count, icon_image, icon,last
     # weight, height,hp, attack, defence, specialAttack, specialDefence, speed, total
 
     name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), foreground="#0f0f0a")
@@ -252,6 +275,8 @@ def destroy_main_pokemon_menu():
     # speed.destroy()
     # specialAttack.destroy()
     # specialDefence.destroy()
+    next.destroy()
+    last.destroy()
     pokemon_image_label.destroy()
     icon.destroy()
 
@@ -345,7 +370,9 @@ def type_colour_check(type):
 root = tk.Tk()
 
 info_get_file()
-start_screen()
+
+start_screen_menu()
+back_button()
 
 root.config(bg="red")
 root.title("Pythodex")
