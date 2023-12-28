@@ -54,16 +54,16 @@ def info_get_file():
             listofpoke = {}
             for i in range(2, file_length):
                 line = (lines[i]).split(",")
-                pokename = line[0].replace("-","").replace("'","").replace(" ","").replace(".","")
+                pokename = line[0].replace("-", "").replace("'", "").replace(" ", "").replace(".", "")
                 listofpoke[pokename.lower()] = Pokemon(line[0], line[1], line[2], line[3], line[4],
-                                                       line[5], line[6], line[7], line[8].split("~"), line[9].split("~"), line[10], line[11],
+                                                       line[5], line[6], line[7], line[8].split("~"),
+                                                       line[9].split("~"), line[10], line[11],
                                                        line[12],
                                                        line[13], line[14], line[15].replace("\n", ""))
 
             for pokename, obj in listofpoke.items():
                 globals()[pokename] = obj
                 eval(pokename).add_to_list(pokemons)
-
 
 
 # start screen
@@ -88,13 +88,13 @@ def start_screen_menu():
 def option_menu():
     global main_pokemon_choose_label, main_pokemon_choose_button, title
 
-    title = ttk.Label(root, text="    Options", font=(font, 25),background="red",foreground="white",underline=4)
+    title = ttk.Label(root, text="    Options", font=(font, 25), background="red", foreground="white", underline=4)
     title.place(relx=0.025, rely=0.075)
 
-    main_pokemon_choose_label = ttk.Label(root, text="Pokemon", font=(font, 20),background="red",foreground="white")
+    main_pokemon_choose_label = ttk.Label(root, text="Pokemon", font=(font, 20), background="red", foreground="white")
     main_pokemon_choose_label.place(relx=0.1, rely=0.175)
 
-    main_pokemon_choose_button = tk.Button(root, text="Enter", font=(font, 15),background="yellow",foreground="black",
+    main_pokemon_choose_button = tk.Button(root, text="Enter", font=(font, 15), background="yellow", foreground="black",
                                            command=lambda: [destroy_option_menu(), main_pokemon(),
                                                             screens.append("main pokemon menu")])
     main_pokemon_choose_button.place(relx=0.625, rely=0.175)
@@ -130,6 +130,7 @@ def back_button_func():
         back_button_button.destroy()
         back_button()
 
+
 def back_button():
     global back_button_button
 
@@ -141,9 +142,11 @@ def secondary_pokemon_menu():
     global name, next, last, count, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total, \
         ability, hiddenAbility, back_page
 
-    name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), background="red",foreground="white")
-    height = (ttk.Label(root, text=f"Height:{pokemons[count].height}m", font=(font, 15), background="red",foreground="white"))
-    weight = (ttk.Label(root, text=f"Weight:{pokemons[count].weight}kg", font=(font, 15), background="red",foreground="white"))
+    name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), background="red", foreground="white")
+    height = (ttk.Label(root, text=f"Height:{pokemons[count].height}m", font=(font, 15), background="red",
+                        foreground="white"))
+    weight = (ttk.Label(root, text=f"Weight:{pokemons[count].weight}kg", font=(font, 15), background="red",
+                        foreground="white"))
 
     if len(pokemons[count].abilities) == 1:
         textability = f"Ability:{pokemons[count].abilities[0]}"
@@ -151,7 +154,7 @@ def secondary_pokemon_menu():
         textability = f"Abilities:{pokemons[count].abilities[0]},\n          {pokemons[count].abilities[1]}"
     else:
         textability = "Abilities:None"
-    ability = (ttk.Label(root, text=textability, font=(font, 15), background="red",foreground="white"))
+    ability = (ttk.Label(root, text=textability, font=(font, 15), background="red", foreground="white"))
     if pokemons[count].habilities[0] == "":
         textability = "Hidden Ability:None"
     elif len(pokemons[count].habilities) == 1:
@@ -159,17 +162,23 @@ def secondary_pokemon_menu():
     elif len(pokemons[count].habilities) == 2:
         textability = f"hiddenAbilities:{pokemons[count].habilities[0]},{pokemons[count].habilities[1]}"
 
-    hiddenAbility = (ttk.Label(root, text=f"{textability}", font=(font, 15), background="red",foreground="white"))
+    hiddenAbility = (ttk.Label(root, text=f"{textability}", font=(font, 15), background="red", foreground="white"))
 
-    hp = (ttk.Label(root, text=f"HP:{pokemons[count].hp}", font=(font, 15), background="red",foreground="white"))
-    attack = (ttk.Label(root, text=f"Attack:{pokemons[count].attack}", font=(font, 15), background="red",foreground="white"))
-    defence = (ttk.Label(root, text=f"Defence:{pokemons[count].defence}", font=(font, 15), background="red",foreground="white"))
+    hp = (ttk.Label(root, text=f"HP:{pokemons[count].hp}", font=(font, 15), background="red", foreground="white"))
+    attack = (
+        ttk.Label(root, text=f"Attack:{pokemons[count].attack}", font=(font, 15), background="red", foreground="white"))
+    defence = (ttk.Label(root, text=f"Defence:{pokemons[count].defence}", font=(font, 15), background="red",
+                         foreground="white"))
     specialAttack = (
-        ttk.Label(root, text=f"Special Attack:{pokemons[count].spattack}", font=(font, 15), background="red",foreground="white"))
+        ttk.Label(root, text=f"Special Attack:{pokemons[count].spattack}", font=(font, 15), background="red",
+                  foreground="white"))
     specialDefence = (
-        ttk.Label(root, text=f"Special Defence:{pokemons[count].spdefence}", font=(font, 15), background="red",foreground="white"))
-    speed = (ttk.Label(root, text=f"Speed:{pokemons[count].speed}", font=(font, 15), background="red",foreground="white"))
-    total = (ttk.Label(root, text=f"Total:{pokemons[count].total}", font=(font, 15), background="red",foreground="white"))
+        ttk.Label(root, text=f"Special Defence:{pokemons[count].spdefence}", font=(font, 15), background="red",
+                  foreground="white"))
+    speed = (
+        ttk.Label(root, text=f"Speed:{pokemons[count].speed}", font=(font, 15), background="red", foreground="white"))
+    total = (
+        ttk.Label(root, text=f"Total:{pokemons[count].total}", font=(font, 15), background="red", foreground="white"))
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
                      command=lambda: [destroy_secondary_pokemon_menu(), addonecount(), secondary_pokemon_menu()])
@@ -236,7 +245,8 @@ def main_pokemon():
                             background="red"))
     species = (ttk.Label(root, text=pokemons[count].species, font=(font, 17), foreground="white", background="red"))
 
-    pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{pokemons[count].name.lower()}.png"))
+    imgname=pokemons[count].name.lower().replace('. ', '-').replace('.', '').replace(' ', '-').replace('é', 'e').replace(':', '').replace("'", '')
+    pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{imgname}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
@@ -365,8 +375,8 @@ def type_colour_check(type):
         typefg = "white"
 
     else:
-        typebg = "black"
-        typefg = "white"
+        typebg = "red"
+        typefg = "red"
 
 
 root = tk.Tk()
