@@ -21,32 +21,9 @@ def info_get_file():
 
     with open("Pokemon.txt", "r", encoding='utf-8') as file:
         lines = (file.readlines())
-        print(lines)
         file_length = len(lines)
 
-        legendaries = lines[0].split(",")
-        legendaries[-1] = (legendaries[-1]).replace("\n", "")
 
-        if len(legendaries) == 0:
-            pass
-        else:
-            for i in legendaries:
-                try:
-                    eval(i).legendarify()
-                except NameError:
-                    pass
-
-        mythicals = lines[1].split(",")
-        mythicals[-1] = (mythicals[-1]).replace("\n", "")
-
-        if len(mythicals) == 0:
-            pass
-        else:
-            for i in mythicals:
-                try:
-                    eval(i).myth()
-                except NameError:
-                    pass
 
         if file_length < 3:
             print("No data")
@@ -64,6 +41,31 @@ def info_get_file():
             for pokename, obj in listofpoke.items():
                 globals()[pokename] = obj
                 eval(pokename).add_to_list(pokemons)
+
+            legendaries = lines[0].split(",")
+            legendaries[-1] = (legendaries[-1]).replace("\n", "")
+            print(pokemons[143].name)
+
+            if len(legendaries) == 0:
+                pass
+            else:
+                for i in legendaries:
+                    for x in pokemons:
+                        if x.name == i:
+                            x.legendarify()
+                        else:
+                            pass
+
+            mythicals = lines[1].split(",")
+            mythicals[-1] = (mythicals[-1]).replace("\n", "")
+
+            if len(mythicals) == 0:
+                pass
+            else:
+                for i in mythicals:
+                    for x in pokemons:
+                        if x.name == i:
+                            x.myth()
 
 
 # start screen
@@ -245,7 +247,9 @@ def main_pokemon():
                             background="red"))
     species = (ttk.Label(root, text=pokemons[count].species, font=(font, 17), foreground="white", background="red"))
 
-    imgname=pokemons[count].name.lower().replace('. ', '-').replace('.', '').replace(' ', '-').replace('é', 'e').replace(':', '').replace("'", '')
+    imgname = pokemons[count].name.lower().replace('. ', '-').replace('.', '').replace(' ', '-').replace('é',
+                                                                                                         'e').replace(
+        ':', '').replace("'", '')
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{imgname}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
