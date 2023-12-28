@@ -54,7 +54,7 @@ def info_get_file():
             listofpoke = {}
             for i in range(2, file_length):
                 line = (lines[i]).split(",")
-                pokename = line[0]
+                pokename = line[0].replace("-","").replace("'","").replace(" ","").replace(".","")
                 listofpoke[pokename.lower()] = Pokemon(line[0], line[1], line[2], line[3], line[4],
                                                        line[5], line[6], line[7], line[8].split("~"), line[9].split("~"), line[10], line[11],
                                                        line[12],
@@ -129,7 +129,6 @@ def back_button_func():
             main_pokemon()
         back_button_button.destroy()
         back_button()
-
 
 def back_button():
     global back_button_button
@@ -224,23 +223,7 @@ def main_pokemon():
 
     name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), foreground="white", background="red")
 
-    numberlen = len(str(pokemons[count].number))
-    if numberlen < 1:
-        number = (ttk.Label(root, text="#0000", font=(font, 17), foreground="white", background="red"))
-    elif numberlen == 1:
-        number = (ttk.Label(root, text=f"#000{pokemons[count].number}", font=(font, 17), foreground="white",
-                            background="red"))
-    elif numberlen == 2:
-        number = (
-            ttk.Label(root, text=f"#00{pokemons[count].number}", font=(font, 17), foreground="white", background="red"))
-    elif numberlen == 3:
-        number = (
-            ttk.Label(root, text=f"#0{pokemons[count].number}", font=(font, 17), foreground="white", background="red"))
-    elif numberlen == 4:
-        number = (
-            ttk.Label(root, text=f"#{pokemons[count].number}", font=(font, 17), foreground="white", background="red"))
-    else:
-        number = (ttk.Label(root, text="#Error", font=(font, 17), background="red"))
+    number = (ttk.Label(root, text=f"#{pokemons[count].number}", font=(font, 17), foreground="white", background="red"))
 
     typebg = "white"
     typefg = "black"
