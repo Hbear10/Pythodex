@@ -14,6 +14,9 @@ font = "Joystix Monospace"
 
 count = 0
 
+types = ["None", "Grass", "Fire", "Water", "Bug", "Rock", "Ground", "Dragon", "Electric", "Steel", "Fairy", "Dark",
+         "Psychic", "Poison", "Normal", "Fighting", "Flying", "Ghost", "Ice"]
+
 
 # file handling
 def info_get_file():
@@ -22,8 +25,6 @@ def info_get_file():
     with open("Pokemon.txt", "r", encoding='utf-8') as file:
         lines = (file.readlines())
         file_length = len(lines)
-
-
 
         if file_length < 3:
             print("No data")
@@ -44,7 +45,6 @@ def info_get_file():
 
             legendaries = lines[0].split(",")
             legendaries[-1] = (legendaries[-1]).replace("\n", "")
-            print(pokemons[143].name)
 
             if len(legendaries) == 0:
                 pass
@@ -88,7 +88,9 @@ def start_screen_menu():
 
 # option select
 def option_menu():
-    global main_pokemon_choose_label, main_pokemon_choose_button, title
+    global main_pokemon_choose_label, main_pokemon_choose_button, title, count, filtered_search_choose_label, filtered_search_choose_button
+
+    count = 0
 
     title = ttk.Label(root, text="    Options", font=(font, 25), background="red", foreground="white", underline=4)
     title.place(relx=0.025, rely=0.075)
@@ -97,14 +99,25 @@ def option_menu():
     main_pokemon_choose_label.place(relx=0.1, rely=0.175)
 
     main_pokemon_choose_button = tk.Button(root, text="Enter", font=(font, 15), background="yellow", foreground="black",
-                                           command=lambda: [destroy_option_menu(), main_pokemon(),
+                                           command=lambda: [destroy_option_menu(), main_pokemon(pokemons),
                                                             screens.append("main pokemon menu")])
     main_pokemon_choose_button.place(relx=0.625, rely=0.175)
+
+    filtered_search_choose_label = ttk.Label(root, text="Filter", font=(font, 20), background="red", foreground="white")
+    filtered_search_choose_label.place(relx=0.1, rely=0.3)
+
+    filtered_search_choose_button = tk.Button(root, text="Enter", font=(font, 15), background="yellow",
+                                              foreground="black",
+                                              command=lambda: [destroy_option_menu(), filtered_search(),
+                                                               screens.append("filter")])
+    filtered_search_choose_button.place(relx=0.625, rely=0.3)
 
 
 def destroy_option_menu():
     main_pokemon_choose_label.destroy()
     main_pokemon_choose_button.destroy()
+    filtered_search_choose_label.destroy()
+    filtered_search_choose_button.destroy()
     title.destroy()
 
 
@@ -120,15 +133,18 @@ def back_button_func():
             destroy_main_pokemon_menu()
         elif screens[-1] == "second pokemon menu":
             destroy_secondary_pokemon_menu()
+        elif screens[-1] == "filter":
+            destroy_filtered_search()
 
         screens.pop()
         if screens[-1] == "start":
             start_screen_menu()
         elif screens[-1] == "option menu":
-
             option_menu()
         elif screens[-1] == "main pokemon menu":
-            main_pokemon()
+            main_pokemon(pokemons)
+        elif screens[-1] == "filter":
+            filtered_search()
         back_button_button.destroy()
         back_button()
 
@@ -140,7 +156,91 @@ def back_button():
     back_button_button.place(relx=0, rely=0)
 
 
-def secondary_pokemon_menu():
+def filtered_list(type, gen):
+    global pokemons, count, new_list2
+
+    count = 0
+
+    new_list1 = []
+    if type == 0:
+        new_list1 = pokemons
+    else:
+        for i in pokemons:
+            if i.type1 == types[type] or i.type2 == types[type]:
+                new_list1.append(i)
+
+    new_list2 = []
+    if gen == "0":
+        new_list2 = new_list1
+    else:
+        for i in new_list1:
+            if i.generation == gen:
+                new_list2.append(i)
+
+    return new_list2
+
+
+def filtered_search():
+    global typelabel, type_combobox, title, gen_spinbox, generationlabel, go_button, count
+
+    count = 0
+
+    title = ttk.Label(root, text="Filtered Search", font=(font, 25), background="red", foreground="white")
+    title.place(relx=0.05, rely=0.075)
+
+    typelabel = ttk.Label(root, text="Type", font=(font, 20), background="red", foreground="white")
+    typelabel.place(relx=0.1, rely=0.175)
+
+    type = tk.StringVar
+    type_combobox = ttk.Combobox(root, textvariable=type, width=9, font=(font, 15))
+    type_combobox["values"] = types
+    type_combobox["state"] = "readonly"
+    print(type_combobox.current(0))
+    type_combobox.place(relx=0.4, rely=0.19)
+
+    generationlabel = ttk.Label(root, text="Gen", font=(font, 20), background="red", foreground="white")
+    generationlabel.place(relx=0.1, rely=0.3)
+
+    current_gen = tk.StringVar(value=0)
+    gen_spinbox = ttk.Spinbox(root, from_=0, to=9, textvariable=current_gen, font=(font, 15), width=2, wrap=True)
+    gen_spinbox["state"] = "readonly"
+    gen_spinbox.place(relx=0.4, rely=0.31)
+
+    go_button = tk.Button(root, text="GO",
+                          command=(lambda: [main_pokemon(filtered_list(type_combobox.current(), current_gen.get())),
+                                            destroy_filtered_search(), screens.append("main pokemon menu")]),
+                          font=(font, 15), background="yellow")
+    go_button.place(relx=0.45, rely=0.9)
+
+
+def destroy_filtered_search():
+    title.destroy()
+    gen_spinbox.destroy()
+    typelabel.destroy()
+    type_combobox.destroy()
+    generationlabel.destroy()
+    go_button.destroy()
+
+
+def direct_search():
+    global title
+
+    title = ttk.Label(root, text="Search")
+
+
+def destroy_direct_search():
+    pass
+
+
+def type_effectivness():
+    pass
+
+
+def destroy_type_effectivness():
+    pass
+
+
+def secondary_pokemon_menu(pokemons):
     global name, next, last, count, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total, \
         ability, hiddenAbility, back_page
 
@@ -183,11 +283,13 @@ def secondary_pokemon_menu():
         ttk.Label(root, text=f"Total:{pokemons[count].total}", font=(font, 15), background="red", foreground="white"))
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
-                     command=lambda: [destroy_secondary_pokemon_menu(), addonecount(), secondary_pokemon_menu()])
+                     command=lambda: [destroy_secondary_pokemon_menu(), addonecount(pokemons),
+                                      secondary_pokemon_menu(pokemons)])
     last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
-                     command=lambda: [destroy_secondary_pokemon_menu(), minusonecount(), secondary_pokemon_menu()])
+                     command=lambda: [destroy_secondary_pokemon_menu(), minusonecount(pokemons),
+                                      secondary_pokemon_menu(pokemons)])
     back_page = tk.Button(root, font=(font, 12), bg="yellow", text="Less...",
-                          command=lambda: [destroy_secondary_pokemon_menu(), main_pokemon(), screens.pop(),
+                          command=lambda: [destroy_secondary_pokemon_menu(), main_pokemon(pokemons), screens.pop(),
                                            screens.append("main pokemon menu")])
 
     name.place(relx=0.025, rely=0.075)
@@ -228,7 +330,7 @@ def destroy_secondary_pokemon_menu():
 
 
 # main pokemon menu
-def main_pokemon():
+def main_pokemon(pokemons):
     global name, number, type1, type2, generation, species, pokemon_image_label, next, \
         typebg, typefg, pokemon_image, count, icon_image, icon, last, to_page_two_button
 
@@ -254,12 +356,12 @@ def main_pokemon():
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
-                     command=lambda: [destroy_main_pokemon_menu(), addonecount(), main_pokemon()])
+                     command=lambda: [destroy_main_pokemon_menu(), addonecount(pokemons), main_pokemon(pokemons)])
     last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
-                     command=lambda: [destroy_main_pokemon_menu(), minusonecount(), main_pokemon()])
+                     command=lambda: [destroy_main_pokemon_menu(), minusonecount(pokemons), main_pokemon(pokemons)])
 
     to_page_two_button = tk.Button(root, font=(font, 12), bg="yellow", text="More...",
-                                   command=lambda: [destroy_main_pokemon_menu(), secondary_pokemon_menu(),
+                                   command=lambda: [destroy_main_pokemon_menu(), secondary_pokemon_menu(pokemons),
                                                     screens.pop(), screens.append("second pokemon menu")])
 
     if pokemons[count].legendary:
@@ -301,7 +403,7 @@ def destroy_main_pokemon_menu():
     to_page_two_button.destroy()
 
 
-def addonecount():
+def addonecount(pokemons):
     global count
 
     if count == len(pokemons) - 1:
@@ -310,7 +412,7 @@ def addonecount():
         count += 1
 
 
-def minusonecount():
+def minusonecount(pokemons):
     global count
 
     if count == 0:
