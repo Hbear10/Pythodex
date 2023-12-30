@@ -17,6 +17,8 @@ count = 0
 types = ["None", "Grass", "Fire", "Water", "Bug", "Rock", "Ground", "Dragon", "Electric", "Steel", "Fairy", "Dark",
          "Psychic", "Poison", "Normal", "Fighting", "Flying", "Ghost", "Ice"]
 
+pokemon_names = []
+
 
 # file handling
 def info_get_file():
@@ -32,6 +34,7 @@ def info_get_file():
             listofpoke = {}
             for i in range(2, file_length):
                 line = (lines[i]).split(",")
+                pokemon_names.append(line[0])
                 pokename = line[0].replace("-", "").replace("'", "").replace(" ", "").replace(".", "")
                 listofpoke[pokename.lower()] = Pokemon(line[0], line[1], line[2], line[3], line[4],
                                                        line[5], line[6], line[7], line[8].split("~"),
@@ -88,11 +91,12 @@ def start_screen_menu():
 
 # option select
 def option_menu():
-    global main_pokemon_choose_label, main_pokemon_choose_button, title, count, filtered_search_choose_label, filtered_search_choose_button
+    global main_pokemon_choose_label, main_pokemon_choose_button, title, count, filtered_search_choose_label, filtered_search_choose_button, \
+        direct_search_choose_label, direct_search_choose_button
 
     count = 0
 
-    title = ttk.Label(root, text="    Options", font=(font, 25), background="red", foreground="white", underline=4)
+    title = ttk.Label(root, text="    Options", font=(font, 25), background="red", foreground="white")
     title.place(relx=0.025, rely=0.075)
 
     main_pokemon_choose_label = ttk.Label(root, text="Pokemon", font=(font, 20), background="red", foreground="white")
@@ -112,6 +116,15 @@ def option_menu():
                                                                screens.append("filter")])
     filtered_search_choose_button.place(relx=0.625, rely=0.3)
 
+    direct_search_choose_label = ttk.Label(root, text="Search", font=(font, 20), background="red", foreground="white")
+    direct_search_choose_label.place(relx=0.1, rely=0.425)
+
+    direct_search_choose_button = tk.Button(root, text="Enter", font=(font, 15), background="yellow",
+                                            foreground="black",
+                                            command=lambda: [destroy_option_menu(), direct_search(),
+                                                             screens.append("search")])
+    direct_search_choose_button.place(relx=0.625, rely=0.425)
+
 
 def destroy_option_menu():
     main_pokemon_choose_label.destroy()
@@ -119,6 +132,8 @@ def destroy_option_menu():
     filtered_search_choose_label.destroy()
     filtered_search_choose_button.destroy()
     title.destroy()
+    direct_search_choose_label.destroy()
+    direct_search_choose_button.destroy()
 
 
 def back_button_func():
@@ -135,6 +150,8 @@ def back_button_func():
             destroy_secondary_pokemon_menu()
         elif screens[-1] == "filter":
             destroy_filtered_search()
+        elif screens[-1] == "search":
+            destroy_direct_search()
 
         screens.pop()
         if screens[-1] == "start":
@@ -145,6 +162,8 @@ def back_button_func():
             main_pokemon(pokemons)
         elif screens[-1] == "filter":
             filtered_search()
+        elif screens[-1] == "search":
+            direct_search()
         back_button_button.destroy()
         back_button()
 
@@ -222,14 +241,69 @@ def destroy_filtered_search():
     go_button.destroy()
 
 
-def direct_search():
-    global title
+def fillout(entry, listbox):
+    entry.delete(0, "end")
+    entry.insert(0, listbox.get(listbox.curselection()[0]))
 
-    title = ttk.Label(root, text="Search")
+
+def check_name_listbox(e):
+    typed = name_input.get()
+
+    if typed == "":
+        name_listbox["listvariable"] = data
+    else:
+        new_data = []
+        for item in pokemon_names:
+            if typed.lower() in item.lower():
+                new_data.append(item)
+        new_new_data = tk.Variable(value=new_data)
+        name_listbox["listvariable"] = new_new_data
+
+
+def direct_search_button_func():
+    global screens
+    if name_input.get() in pokemon_names:
+        new_list = []
+        for i in pokemon_names:
+            if name_input.get() == i:
+                num = pokemon_names.index(i)
+        new_list.append(pokemons[num])
+        destroy_direct_search()
+        main_pokemon(new_list)
+        screens.append("main pokemon menu")
+
+
+def direct_search():
+    global title, name_input, name_listbox, data, namelabel, go_button_search
+
+    title = ttk.Label(root, text="Search", font=(font, 25), background="red", foreground="white")
+    title.place(relx=0.3, rely=0.05)
+
+    namelabel = ttk.Label(root, text="Name", font=(font, 20), background="red", foreground="white")
+    namelabel.place(relx=0.1, rely=0.1)
+
+    name_input = tk.Entry(root, font=(font, 15))
+    name_input.place(relx=0.1, rely=0.175)
+
+    data = tk.Variable(value=pokemon_names)
+    name_listbox = tk.Listbox(root, width=25, listvariable=data, font=(font, 15))
+    name_listbox.place(relx=0.05, rely=0.25)
+
+    name_listbox.bind("<<ListboxSelect>>", lambda event: [fillout(name_input, name_listbox)])
+
+    name_input.bind("<KeyRelease>", check_name_listbox)
+
+    go_button_search = tk.Button(root, text="go", background="yellow", font=(font, 15),
+                                 command=direct_search_button_func)
+    go_button_search.place(relx=0.4, rely=0.9)
 
 
 def destroy_direct_search():
-    pass
+    title.destroy()
+    namelabel.destroy()
+    name_input.destroy()
+    name_listbox.destroy()
+    go_button_search.destroy()
 
 
 def type_effectivness():
@@ -306,8 +380,9 @@ def secondary_pokemon_menu(pokemons):
     speed.place(relx=0.025, rely=0.725)
     total.place(relx=0.025, rely=0.775)
 
-    next.place(relx=0.9, rely=0.9)
-    last.place(relx=0.8, rely=0.9)
+    if len(pokemons) > 1:
+        next.place(relx=0.9, rely=0.9)
+        last.place(relx=0.8, rely=0.9)
     back_page.place(relx=0.35, rely=0.9)
 
 
@@ -382,8 +457,10 @@ def main_pokemon(pokemons):
     generation.place(relx=0.025, rely=0.9)
     species.place(relx=0.025, rely=0.15)
 
-    next.place(relx=0.9, rely=0.9)
-    last.place(relx=0.8, rely=0.9)
+    if len(pokemons) > 1:
+        next.place(relx=0.9, rely=0.9)
+        last.place(relx=0.8, rely=0.9)
+
     to_page_two_button.place(relx=0.35, rely=0.9)
 
     pokemon_image_label.place(relx=0.25, rely=0.4)
@@ -396,6 +473,7 @@ def destroy_main_pokemon_menu():
     type2.destroy()
     species.destroy()
     generation.destroy()
+
     next.destroy()
     last.destroy()
     pokemon_image_label.destroy()
