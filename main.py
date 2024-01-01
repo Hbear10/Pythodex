@@ -1,13 +1,17 @@
+# class, custom
 from Pokemon import Pokemon
+# tkinter module for gui
 import tkinter as tk
 from tkinter import ttk
+# PIL - python image library, make images gud
 from PIL import ImageTk, Image
-
+# I can't remember what this does, but it helps with something
 from ctypes import windll
-
 windll.shcore.SetProcessDpiAwareness(1)
 
+# list that tracks what menus have been accessed and in what order
 screens = ["start"]
+
 pokemons = []
 
 font = "Joystix Monospace"
@@ -28,6 +32,7 @@ def info_get_file():
         lines = (file.readlines())
         file_length = len(lines)
 
+        # takes stuff from file and creates objects then puts them in list
         if file_length < 3:
             print("No data")
         else:
@@ -49,6 +54,7 @@ def info_get_file():
             legendaries = lines[0].split(",")
             legendaries[-1] = (legendaries[-1]).replace("\n", "")
 
+            # checks if legendary or mythical
             if len(legendaries) == 0:
                 pass
             else:
@@ -71,12 +77,13 @@ def info_get_file():
                             x.myth()
 
 
-# start screen
+# destroy all objects in start screen
 def start_screen_destroy():
     start_screen.destroy()
     start_button.destroy()
 
 
+# creates start screen
 def start_screen_menu():
     global start_screen, start_screen_img, start_button
 
@@ -126,6 +133,7 @@ def option_menu():
     direct_search_choose_button.place(relx=0.625, rely=0.425)
 
 
+# destroy all objects in option menu
 def destroy_option_menu():
     main_pokemon_choose_label.destroy()
     main_pokemon_choose_button.destroy()
@@ -136,6 +144,8 @@ def destroy_option_menu():
     direct_search_choose_button.destroy()
 
 
+# function for the back button, destroys the current screen, removes it from the screen list then
+# draw the appropriate screen
 def back_button_func():
     global screens
 
@@ -168,6 +178,7 @@ def back_button_func():
         back_button()
 
 
+# create back button
 def back_button():
     global back_button_button
 
@@ -175,6 +186,7 @@ def back_button():
     back_button_button.place(relx=0, rely=0)
 
 
+# filter the list
 def filtered_list(type, gen):
     global pokemons, count, new_list2
 
@@ -199,6 +211,7 @@ def filtered_list(type, gen):
     return new_list2
 
 
+# create the filtered list menu
 def filtered_search():
     global typelabel, type_combobox, title, gen_spinbox, generationlabel, go_button, count
 
@@ -210,8 +223,8 @@ def filtered_search():
     typelabel = ttk.Label(root, text="Type", font=(font, 20), background="red", foreground="white")
     typelabel.place(relx=0.1, rely=0.175)
 
-    type = tk.StringVar
-    type_combobox = ttk.Combobox(root, textvariable=type, width=9, font=(font, 15))
+    type = ""
+    type_combobox = ttk.Combobox(root, width=9, font=(font, 15))
     type_combobox["values"] = types
     type_combobox["state"] = "readonly"
     print(type_combobox.current(0))
@@ -232,6 +245,7 @@ def filtered_search():
     go_button.place(relx=0.45, rely=0.9)
 
 
+# destroy the filtered list menu
 def destroy_filtered_search():
     title.destroy()
     gen_spinbox.destroy()
@@ -241,12 +255,14 @@ def destroy_filtered_search():
     go_button.destroy()
 
 
+# if you click on the listbox then it gets inputted into entry
 def fillout(entry, listbox):
     entry.delete(0, "end")
     entry.insert(0, listbox.get(listbox.curselection()[0]))
 
 
-def check_name_listbox(e):
+# makes the listbox change dependent on what is in the entry
+def check_name_listbox():
     typed = name_input.get()
 
     if typed == "":
@@ -260,6 +276,7 @@ def check_name_listbox(e):
         name_listbox["listvariable"] = new_new_data
 
 
+# search for Pokémon
 def direct_search_button_func():
     global screens
     if name_input.get() in pokemon_names:
@@ -273,20 +290,21 @@ def direct_search_button_func():
         screens.append("main pokemon menu")
 
 
+# create the search menu
 def direct_search():
     global title, name_input, name_listbox, data, namelabel, go_button_search
 
     title = ttk.Label(root, text="Search", font=(font, 25), background="red", foreground="white")
     title.place(relx=0.3, rely=0.05)
 
-    namelabel = ttk.Label(root, text="Name", font=(font, 20), background="red", foreground="white")
-    namelabel.place(relx=0.1, rely=0.1)
+    namelabel = ttk.Label(root, text="Name:", font=(font, 20), background="red", foreground="white")
+    namelabel.place(relx=0.05, rely=0.15)
 
-    name_input = tk.Entry(root, font=(font, 15))
-    name_input.place(relx=0.1, rely=0.175)
+    name_input = tk.Entry(root, font=(font, 15), width=15)
+    name_input.place(relx=0.3, rely=0.16)
 
     data = tk.Variable(value=pokemon_names)
-    name_listbox = tk.Listbox(root, width=25, listvariable=data, font=(font, 15))
+    name_listbox = tk.Listbox(root, width=25, height=12, listvariable=data, font=(font, 15))
     name_listbox.place(relx=0.05, rely=0.25)
 
     name_listbox.bind("<<ListboxSelect>>", lambda event: [fillout(name_input, name_listbox)])
@@ -307,63 +325,79 @@ def destroy_direct_search():
 
 
 def type_effectivness():
-    pass
+    global title
+
+    title = ttk.Label(root,text="Type calculator",font=(font,25),foreground="white",background="red")
+    title.place(relx=0.0375,rely=0.05)
+
+    type1label = ttk.Label(root, text="Type1:",font=(font,20),foreground="white",background="red")
+    type1label.place(relx=0.05,rely=0.15)
+    type2label = ttk.Label(root, text="Type2:", font=(font, 20), foreground="white", background="red")
+    type2label.place(relx=0.5, rely=0.15)
+
+    type1selection = ttk.Combobox(root,  font=(font, 15),width=10)
+    type2selection = ttk.Combobox(root, font=(font, 15),width=10)
+    type1selection["values"] = types
+    type2selection["values"] = types
+    type1selection.place(relx=0.05,rely=0.225)
+    type2selection.place(relx=0.5,rely=0.225)
 
 
 def destroy_type_effectivness():
     pass
 
 
-def secondary_pokemon_menu(pokemons):
+# creates v
+def secondary_pokemon_menu(list):
     global name, next, last, count, weight, height, hp, attack, defence, specialAttack, specialDefence, speed, total, \
         ability, hiddenAbility, back_page
 
-    name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), background="red", foreground="white")
-    height = (ttk.Label(root, text=f"Height:{pokemons[count].height}m", font=(font, 15), background="red",
+    name = ttk.Label(root, text=list[count].name, font=(font, 25), background="red", foreground="white")
+    height = (ttk.Label(root, text=f"Height:{list[count].height}m", font=(font, 15), background="red",
                         foreground="white"))
-    weight = (ttk.Label(root, text=f"Weight:{pokemons[count].weight}kg", font=(font, 15), background="red",
+    weight = (ttk.Label(root, text=f"Weight:{list[count].weight}kg", font=(font, 15), background="red",
                         foreground="white"))
 
-    if len(pokemons[count].abilities) == 1:
-        textability = f"Ability:{pokemons[count].abilities[0]}"
-    elif len(pokemons[count].abilities) == 2:
-        textability = f"Abilities:{pokemons[count].abilities[0]},\n          {pokemons[count].abilities[1]}"
+    if len(list[count].abilities) == 1:
+        textability = f"Ability:{list[count].abilities[0]}"
+    elif len(list[count].abilities) == 2:
+        textability = f"Abilities:{list[count].abilities[0]},\n          {list[count].abilities[1]}"
     else:
         textability = "Abilities:None"
     ability = (ttk.Label(root, text=textability, font=(font, 15), background="red", foreground="white"))
-    if pokemons[count].habilities[0] == "":
+    if list[count].habilities[0] == "":
         textability = "Hidden Ability:None"
-    elif len(pokemons[count].habilities) == 1:
-        textability = f"hidden Ability:{pokemons[count].habilities[0]}"
-    elif len(pokemons[count].habilities) == 2:
-        textability = f"hiddenAbilities:{pokemons[count].habilities[0]},{pokemons[count].habilities[1]}"
+    elif len(list[count].habilities) == 1:
+        textability = f"hidden Ability:{list[count].habilities[0]}"
+    elif len(list[count].habilities) == 2:
+        textability = f"hiddenAbilities:{list[count].habilities[0]},{list[count].habilities[1]}"
 
     hiddenAbility = (ttk.Label(root, text=f"{textability}", font=(font, 15), background="red", foreground="white"))
 
-    hp = (ttk.Label(root, text=f"HP:{pokemons[count].hp}", font=(font, 15), background="red", foreground="white"))
+    hp = (ttk.Label(root, text=f"HP:{list[count].hp}", font=(font, 15), background="red", foreground="white"))
     attack = (
-        ttk.Label(root, text=f"Attack:{pokemons[count].attack}", font=(font, 15), background="red", foreground="white"))
-    defence = (ttk.Label(root, text=f"Defence:{pokemons[count].defence}", font=(font, 15), background="red",
+        ttk.Label(root, text=f"Attack:{list[count].attack}", font=(font, 15), background="red", foreground="white"))
+    defence = (ttk.Label(root, text=f"Defence:{list[count].defence}", font=(font, 15), background="red",
                          foreground="white"))
     specialAttack = (
-        ttk.Label(root, text=f"Special Attack:{pokemons[count].spattack}", font=(font, 15), background="red",
+        ttk.Label(root, text=f"Special Attack:{list[count].spattack}", font=(font, 15), background="red",
                   foreground="white"))
     specialDefence = (
-        ttk.Label(root, text=f"Special Defence:{pokemons[count].spdefence}", font=(font, 15), background="red",
+        ttk.Label(root, text=f"Special Defence:{list[count].spdefence}", font=(font, 15), background="red",
                   foreground="white"))
     speed = (
-        ttk.Label(root, text=f"Speed:{pokemons[count].speed}", font=(font, 15), background="red", foreground="white"))
+        ttk.Label(root, text=f"Speed:{list[count].speed}", font=(font, 15), background="red", foreground="white"))
     total = (
-        ttk.Label(root, text=f"Total:{pokemons[count].total}", font=(font, 15), background="red", foreground="white"))
+        ttk.Label(root, text=f"Total:{list[count].total}", font=(font, 15), background="red", foreground="white"))
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
-                     command=lambda: [destroy_secondary_pokemon_menu(), addonecount(pokemons),
-                                      secondary_pokemon_menu(pokemons)])
+                     command=lambda: [destroy_secondary_pokemon_menu(), addonecount(list),
+                                      secondary_pokemon_menu(list)])
     last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
-                     command=lambda: [destroy_secondary_pokemon_menu(), minusonecount(pokemons),
-                                      secondary_pokemon_menu(pokemons)])
+                     command=lambda: [destroy_secondary_pokemon_menu(), minusonecount(list),
+                                      secondary_pokemon_menu(list)])
     back_page = tk.Button(root, font=(font, 12), bg="yellow", text="Less...",
-                          command=lambda: [destroy_secondary_pokemon_menu(), main_pokemon(pokemons), screens.pop(),
+                          command=lambda: [destroy_secondary_pokemon_menu(), main_pokemon(list), screens.pop(),
                                            screens.append("main pokemon menu")])
 
     name.place(relx=0.025, rely=0.075)
@@ -380,7 +414,7 @@ def secondary_pokemon_menu(pokemons):
     speed.place(relx=0.025, rely=0.725)
     total.place(relx=0.025, rely=0.775)
 
-    if len(pokemons) > 1:
+    if len(list) > 1:
         next.place(relx=0.9, rely=0.9)
         last.place(relx=0.8, rely=0.9)
     back_page.place(relx=0.35, rely=0.9)
@@ -405,47 +439,47 @@ def destroy_secondary_pokemon_menu():
 
 
 # main pokemon menu
-def main_pokemon(pokemons):
+def main_pokemon(list):
     global name, number, type1, type2, generation, species, pokemon_image_label, next, \
         typebg, typefg, pokemon_image, count, icon_image, icon, last, to_page_two_button
 
-    name = ttk.Label(root, text=pokemons[count].name, font=(font, 25), foreground="white", background="red")
+    name = ttk.Label(root, text=list[count].name, font=(font, 25), foreground="white", background="red")
 
-    number = (ttk.Label(root, text=f"#{pokemons[count].number}", font=(font, 17), foreground="white", background="red"))
+    number = (ttk.Label(root, text=f"#{list[count].number}", font=(font, 17), foreground="white", background="red"))
 
     typebg = "white"
     typefg = "black"
 
-    type_colour_check(pokemons[count].type1)
-    type1 = (ttk.Label(root, text=pokemons[count].type1, font=(font, 17), background=typebg, foreground=typefg))
-    type_colour_check(pokemons[count].type2)
-    type2 = (ttk.Label(root, text=pokemons[count].type2, font=(font, 17), background=typebg, foreground=typefg))
-    generation = (ttk.Label(root, text=f"Gen: {pokemons[count].generation}", font=(font, 12), foreground="white",
+    type_colour_check(list[count].type1)
+    type1 = (ttk.Label(root, text=list[count].type1, font=(font, 17), background=typebg, foreground=typefg))
+    type_colour_check(list[count].type2)
+    type2 = (ttk.Label(root, text=list[count].type2, font=(font, 17), background=typebg, foreground=typefg))
+    generation = (ttk.Label(root, text=f"Gen: {list[count].generation}", font=(font, 12), foreground="white",
                             background="red"))
-    species = (ttk.Label(root, text=pokemons[count].species, font=(font, 17), foreground="white", background="red"))
+    species = (ttk.Label(root, text=list[count].species, font=(font, 17), foreground="white", background="red"))
 
-    imgname = pokemons[count].name.lower().replace('. ', '-').replace('.', '').replace(' ', '-').replace('é',
+    imgname = list[count].name.lower().replace('. ', '-').replace('.', '').replace(' ', '-').replace('é',
                                                                                                          'e').replace(
         ':', '').replace("'", '')
     pokemon_image = ImageTk.PhotoImage(Image.open(f"./assets/{imgname}.png"))
     pokemon_image_label = ttk.Label(root, image=pokemon_image, background="red", borderwidth=0)
 
     next = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text=">",
-                     command=lambda: [destroy_main_pokemon_menu(), addonecount(pokemons), main_pokemon(pokemons)])
+                     command=lambda: [destroy_main_pokemon_menu(), addonecount(list), main_pokemon(list)])
     last = tk.Button(root, font=(font, 12), bg="yellow", fg="black", text="<",
-                     command=lambda: [destroy_main_pokemon_menu(), minusonecount(pokemons), main_pokemon(pokemons)])
+                     command=lambda: [destroy_main_pokemon_menu(), minusonecount(list), main_pokemon(list)])
 
     to_page_two_button = tk.Button(root, font=(font, 12), bg="yellow", text="More...",
-                                   command=lambda: [destroy_main_pokemon_menu(), secondary_pokemon_menu(pokemons),
+                                   command=lambda: [destroy_main_pokemon_menu(), secondary_pokemon_menu(list),
                                                     screens.pop(), screens.append("second pokemon menu")])
 
-    if pokemons[count].legendary:
+    if list[count].legendary:
         icon_image = ImageTk.PhotoImage(Image.open(f"./assets/legendary_Preview.png"))
     else:
         icon_image = ImageTk.PhotoImage(Image.open(f"./assets/myth.png"))
     icon = ttk.Label(root, image=icon_image, background="red", borderwidth=0)
 
-    if pokemons[count].legendary or pokemons[count].mythical:
+    if list[count].legendary or list[count].mythical:
         icon.place(relx=0.7, rely=0.05)
     else:
         icon.place(relx=1, rely=1)
@@ -457,7 +491,7 @@ def main_pokemon(pokemons):
     generation.place(relx=0.025, rely=0.9)
     species.place(relx=0.025, rely=0.15)
 
-    if len(pokemons) > 1:
+    if len(list) > 1:
         next.place(relx=0.9, rely=0.9)
         last.place(relx=0.8, rely=0.9)
 
@@ -481,24 +515,25 @@ def destroy_main_pokemon_menu():
     to_page_two_button.destroy()
 
 
-def addonecount(pokemons):
+def addonecount(list):
     global count
 
-    if count == len(pokemons) - 1:
+    if count == len(list) - 1:
         count = 0
     else:
         count += 1
 
 
-def minusonecount(pokemons):
+def minusonecount(list):
     global count
 
     if count == 0:
-        count = len(pokemons) - 1
+        count = len(list) - 1
     else:
         count -= 1
 
 
+# checks what type something is and return 2 var dependent on that type
 def type_colour_check(type):
     global typefg
     global typebg
@@ -566,7 +601,7 @@ def type_colour_check(type):
 root = tk.Tk()
 
 info_get_file()
-
+#type_effectivness()
 start_screen_menu()
 back_button()
 
