@@ -151,3 +151,103 @@ Dragonair,0148,1,Dragon,,Dragon Pokémon,4.0,16.5,shed-skin,marvel-scale,61,84,6
 Dragonite,0149,1,Dragon,Flying,Dragon Pokémon,2.2,210.0,inner-focus,multiscale,91,134,95,100,100,80
 Mewtwo,0150,1,Psychic,,Genetic Pokémon,2.0,122.0,pressure,unnerve,106,110,90,154,90,130
 Mew,0151,1,Psychic,,New Species Pokémon,0.4,4.0,synchronize,,100,100,100,100,100,100
+Chikorita,0152,2,Grass,,Leaf Pokémon,0.9,6.4,overgrow,leaf-guard,45,49,65,49,65,45
+Bayleef,0153,2,Grass,,Leaf Pokémon,1.2,15.8,overgrow,leaf-guard,60,62,80,63,80,60
+Meganium,0154,2,Grass,,Herb Pokémon,1.8,100.5,overgrow,leaf-guard,80,82,100,83,100,80
+Cyndaquil,0155,2,Fire,,Fire Mouse Pokémon,0.5,7.9,blaze,flash-fire,39,52,43,60,50,65
+Quilava,0156,2,Fire,,Volcano Pokémon,0.9,19.0,blaze,flash-fire,58,64,58,80,65,80
+Typhlosion,0157,2,Fire,,Volcano Pokémon,1.7,79.5,blaze,flash-fire,78,84,78,109,85,100
+Totodile,0158,2,Water,,Big Jaw Pokémon,0.6,9.5,torrent,sheer-force,50,65,64,44,48,43
+Croconaw,0159,2,Water,,Big Jaw Pokémon,1.1,25.0,torrent,sheer-force,65,80,80,59,63,58
+Feraligatr,0160,2,Water,,Big Jaw Pokémon,2.3,88.8,torrent,sheer-force,85,105,100,79,83,78
+Sentret,0161,2,Normal,,Scout Pokémon,0.8,6.0,run-away,frisk,35,46,34,35,45,20
+Furret,0162,2,Normal,,Long Body Pokémon,1.8,32.5,run-away,frisk,85,76,64,45,55,90
+Hoothoot,0163,2,Normal,Flying,Owl Pokémon,0.7,21.2,insomnia,tinted-lens,60,30,30,36,56,50
+Noctowl,0164,2,Normal,Flying,Owl Pokémon,1.6,40.8,insomnia,tinted-lens,100,50,50,86,96,70
+Ledyba,0165,2,Bug,Flying,Five Star Pokémon,1.0,10.8,swarm,rattled,40,20,30,40,80,55
+Ledian,0166,2,Bug,Flying,Five Star Pokémon,1.4,35.6,swarm,iron-fist,55,35,50,55,110,85
+Spinarak,0167,2,Bug,Poison,String Spit Pokémon,0.5,8.5,swarm,sniper,40,60,40,40,40,30
+Ariados,0168,2,Bug,Poison,Long Leg Pokémon,1.1,33.5,swarm,sniper,70,90,70,60,70,40
+Crobat,0169,2,Poison,Flying,Bat Pokémon,1.8,75.0,inner-focus,infiltrator,85,90,80,70,80,130
+Chinchou,0170,2,Water,Electric,Angler Pokémon,0.5,12.0,volt-absorb,water-absorb,75,38,38,56,56,67
+Lanturn,0171,2,Water,Electric,Light Pokémon,1.2,22.5,volt-absorb,water-absorb,125,58,58,76,76,67
+Pichu,0172,2,Electric,,Tiny Mouse Pokémon,0.3,2.0,static,lightning-rod,20,40,15,35,35,60
+Cleffa,0173,2,Fairy,,Star Shape Pokémon,0.3,3.0,cute-charm,friend-guard,50,25,28,45,55,15
+Igglybuff,0174,2,Normal,Fairy,Balloon Pokémon,0.3,1.0,cute-charm,friend-guard,90,30,15,40,20,15
+Togepi,0175,2,Fairy,,Spike Ball Pokémon,0.3,1.5,hustle,super-luck,35,20,65,40,65,20
+Togetic,0176,2,Fairy,Flying,Happiness Pokémon,0.6,3.2,hustle,super-luck,55,40,85,80,105,40
+Natu,0177,2,Psychic,Flying,Tiny Bird Pokémon,0.2,2.0,synchronize,magic-bounce,40,50,45,70,45,70
+Xatu,0178,2,Psychic,Flying,Mystic Pokémon,1.5,15.0,synchronize,magic-bounce,65,75,70,95,70,95
+Mareep,0179,2,Electric,,Wool Pokémon,0.6,7.8,static,plus,55,40,40,65,45,35
+Flaaffy,0180,2,Electric,,Wool Pokémon,0.8,13.3,static,plus,70,55,55,80,60,45
+Ampharos,0181,2,Electric,,Light Pokémon,1.4,61.5,static,plus,90,75,85,115,90,55
+Bellossom,0182,2,Grass,,Flower Pokémon,0.4,5.8,chlorophyll,healer,75,80,95,90,100,50
+Marill,0183,2,Water,Fairy,Aqua Mouse Pokémon,0.4,8.5,thick-fat,sap-sipper,70,20,50,20,50,40
+Azumarill,0184,2,Water,Fairy,Aqua Rabbit Pokémon,0.8,28.5,thick-fat,sap-sipper,100,50,80,60,80,50
+Sudowoodo,0185,2,Rock,,Imitation Pokémon,1.2,38.0,sturdy,rattled,70,100,115,30,65,30
+Politoed,0186,2,Water,,Frog Pokémon,1.1,33.9,water-absorb,drizzle,90,75,75,90,100,70
+Hoppip,0187,2,Grass,Flying,Cottonweed Pokémon,0.4,0.5,chlorophyll,infiltrator,35,35,40,35,55,50
+Skiploom,0188,2,Grass,Flying,Cottonweed Pokémon,0.6,1.0,chlorophyll,infiltrator,55,45,50,45,65,80
+Jumpluff,0189,2,Grass,Flying,Cottonweed Pokémon,0.8,3.0,chlorophyll,infiltrator,75,55,70,55,95,110
+Aipom,0190,2,Normal,,Long Tail Pokémon,0.8,11.5,run-away,skill-link,55,70,55,40,55,85
+Sunkern,0191,2,Grass,,Seed Pokémon,0.3,1.8,chlorophyll,early-bird,30,30,30,30,30,30
+Sunflora,0192,2,Grass,,Sun Pokémon,0.8,8.5,chlorophyll,early-bird,75,75,55,105,85,30
+Yanma,0193,2,Bug,Flying,Clear Wing Pokémon,1.2,38.0,speed-boost,frisk,65,65,45,75,45,95
+Wooper,0194,2,Water,Ground,Water Fish Pokémon,0.4,8.5,damp,unaware,55,45,45,25,25,15
+Quagsire,0195,2,Water,Ground,Water Fish Pokémon,1.4,75.0,damp,unaware,95,85,85,65,65,35
+Espeon,0196,2,Psychic,,Sun Pokémon,0.9,26.5,synchronize,magic-bounce,65,65,60,130,95,110
+Umbreon,0197,2,Dark,,Moonlight Pokémon,1.0,27.0,synchronize,inner-focus,95,65,110,60,130,65
+Murkrow,0198,2,Dark,Flying,Darkness Pokémon,0.5,2.1,insomnia,prankster,60,85,42,85,42,91
+Slowking,0199,2,Water,Psychic,Royal Pokémon,2.0,79.5,oblivious,regenerator,95,75,80,100,110,30
+Misdreavus,0200,2,Ghost,,Screech Pokémon,0.7,1.0,levitate,,60,60,60,85,85,85
+Unown,0201,2,Psychic,,Symbol Pokémon,0.5,5.0,levitate,,48,72,48,72,48,48
+Wobbuffet,0202,2,Psychic,,Patient Pokémon,1.3,28.5,shadow-tag,telepathy,190,33,58,33,58,33
+Girafarig,0203,2,Normal,Psychic,Long Neck Pokémon,1.5,41.5,inner-focus,sap-sipper,70,80,65,90,65,85
+Pineco,0204,2,Bug,,Bagworm Pokémon,0.6,7.2,sturdy,overcoat,50,65,90,35,35,15
+Forretress,0205,2,Bug,Steel,Bagworm Pokémon,1.2,125.8,sturdy,overcoat,75,90,140,60,60,40
+Dunsparce,0206,2,Normal,,Land Snake Pokémon,1.5,14.0,serene-grace,rattled,100,70,70,65,65,45
+Gligar,0207,2,Ground,Flying,FlyScorpion Pokémon,1.1,64.8,hyper-cutter,immunity,65,75,105,35,65,85
+Steelix,0208,2,Steel,Ground,Iron Snake Pokémon,9.2,400.0,rock-head,sheer-force,75,85,200,55,65,30
+Snubbull,0209,2,Fairy,,Fairy Pokémon,0.6,7.8,intimidate,rattled,60,80,50,40,40,30
+Granbull,0210,2,Fairy,,Fairy Pokémon,1.4,48.7,intimidate,rattled,90,120,75,60,60,45
+Qwilfish,0211,2,Water,Poison,Balloon Pokémon,0.5,3.9,poison-point,intimidate,65,95,85,55,55,85
+Scizor,0212,2,Bug,Steel,Pincer Pokémon,1.8,118.0,swarm,light-metal,70,130,100,55,80,65
+Shuckle,0213,2,Bug,Rock,Mold Pokémon,0.6,20.5,sturdy,contrary,20,10,230,10,230,5
+Heracross,0214,2,Bug,Fighting,Single Horn Pokémon,1.5,54.0,swarm,moxie,80,125,75,40,95,85
+Sneasel,0215,2,Dark,Ice,Sharp Claw Pokémon,0.9,28.0,inner-focus,pickpocket,55,95,55,35,75,115
+Teddiursa,0216,2,Normal,,Little Bear Pokémon,0.6,8.8,pickup,honey-gather,60,80,50,50,50,40
+Ursaring,0217,2,Normal,,Hibernator Pokémon,1.8,125.8,guts,unnerve,90,130,75,75,75,55
+Slugma,0218,2,Fire,,Lava Pokémon,0.7,35.0,magma-armor,weak-armor,40,40,40,70,40,20
+Magcargo,0219,2,Fire,Rock,Lava Pokémon,0.8,55.0,magma-armor,weak-armor,60,50,120,90,80,30
+Swinub,0220,2,Ice,Ground,Pig Pokémon,0.4,6.5,oblivious,thick-fat,50,50,40,30,30,50
+Piloswine,0221,2,Ice,Ground,Swine Pokémon,1.1,55.8,oblivious,thick-fat,100,100,80,60,60,50
+Corsola,0222,2,Water,Rock,Coral Pokémon,0.6,5.0,hustle,regenerator,65,55,95,65,95,35
+Remoraid,0223,2,Water,,Jet Pokémon,0.6,12.0,hustle,moody,35,65,35,65,35,65
+Octillery,0224,2,Water,,Jet Pokémon,0.9,28.5,suction-cups,moody,75,105,75,105,75,45
+Delibird,0225,2,Ice,Flying,Delivery Pokémon,0.9,16.0,vital-spirit,insomnia,45,55,45,65,45,75
+Mantine,0226,2,Water,Flying,Kite Pokémon,2.1,220.0,swift-swim,water-veil,85,40,70,80,140,70
+Skarmory,0227,2,Steel,Flying,Armor Bird Pokémon,1.7,50.5,keen-eye,weak-armor,65,80,140,40,70,70
+Houndour,0228,2,Dark,Fire,Dark Pokémon,0.6,10.8,early-bird,unnerve,45,60,30,80,50,65
+Houndoom,0229,2,Dark,Fire,Dark Pokémon,1.4,35.0,early-bird,unnerve,75,90,50,110,80,95
+Kingdra,0230,2,Water,Dragon,Dragon Pokémon,1.8,152.0,swift-swim,damp,75,95,95,95,95,85
+Phanpy,0231,2,Ground,,Long Nose Pokémon,0.5,33.5,pickup,sand-veil,90,60,60,40,40,40
+Donphan,0232,2,Ground,,Armor Pokémon,1.1,120.0,sturdy,sand-veil,90,120,120,60,60,50
+Porygon2,0233,2,Normal,,Virtual Pokémon,0.6,32.5,trace,analytic,85,80,90,105,95,60
+Stantler,0234,2,Normal,,Big Horn Pokémon,1.4,71.2,intimidate,sap-sipper,73,95,62,85,65,85
+Smeargle,0235,2,Normal,,Painter Pokémon,1.2,58.0,own-tempo,moody,55,20,35,20,45,75
+Tyrogue,0236,2,Fighting,,Scuffle Pokémon,0.7,21.0,guts,vital-spirit,35,35,35,35,35,35
+Hitmontop,0237,2,Fighting,,Handstand Pokémon,1.4,48.0,intimidate,steadfast,50,95,95,35,110,70
+Smoochum,0238,2,Ice,Psychic,Kiss Pokémon,0.4,6.0,oblivious,hydration,45,30,15,85,65,65
+Elekid,0239,2,Electric,,Electric Pokémon,0.6,23.5,static,vital-spirit,45,63,37,65,55,95
+Magby,0240,2,Fire,,Live Coal Pokémon,0.7,21.4,flame-body,vital-spirit,45,75,37,70,55,83
+Miltank,0241,2,Normal,,Milk Cow Pokémon,1.2,75.5,thick-fat,sap-sipper,95,80,105,40,70,100
+Blissey,0242,2,Normal,,Happiness Pokémon,1.5,46.8,natural-cure,healer,255,10,10,75,135,55
+Raikou,0243,2,Electric,,Thunder Pokémon,1.9,178.0,pressure,inner-focus,90,85,75,115,100,115
+Entei,0244,2,Fire,,Volcano Pokémon,2.1,198.0,pressure,inner-focus,115,115,85,90,75,100
+Suicune,0245,2,Water,,Aurora Pokémon,2.0,187.0,pressure,inner-focus,100,75,115,90,115,85
+Larvitar,0246,2,Rock,Ground,Rock Skin Pokémon,0.6,72.0,guts,sand-veil,50,64,50,45,50,41
+Pupitar,0247,2,Rock,Ground,Hard Shell Pokémon,1.2,152.0,shed-skin,,70,84,70,65,70,51
+Tyranitar,0248,2,Rock,Dark,Armor Pokémon,2.0,202.0,sand-stream,unnerve,100,134,110,95,100,61
+Lugia,0249,2,Psychic,Flying,Diving Pokémon,5.2,216.0,pressure,multiscale,106,90,130,90,154,110
+Ho-oh,0250,2,Fire,Flying,Rainbow Pokémon,3.8,199.0,pressure,regenerator,106,130,90,110,154,90
+Celebi,0251,2,Psychic,Grass,Time Travel Pokémon,0.6,5.0,natural-cure,,100,100,100,100,100,100
